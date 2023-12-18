@@ -7,7 +7,9 @@ import { api, type RouterOutputs } from "../utils/api";
 import { Header } from "../components/Header";
 import { NoteEditor } from "../components/NoteEditor";
 import { NoteCard } from "../components/NoteCard";
-
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Home: NextPage = () => {
   return (
     <>
@@ -46,8 +48,18 @@ const Content: React.FC = () => {
   );
 
   const createTopic = api.topic.create.useMutation({
-    onSuccess: () => {
-      void refetchTopics();
+    onSuccess: async () => {
+      await refetchNotes();
+      toast.success("Topic Created successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     },
   });
 
@@ -61,14 +73,48 @@ const Content: React.FC = () => {
   );
 
   const createNote = api.note.create.useMutation({
-    onSuccess: () => {
-      void refetchNotes();
+    onSuccess: async () => {
+      await refetchNotes();
+      toast.success("Note Created successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    },
+    onError: () => {
+      setTimeout(() => {
+        toast.error("Cannot create note without Topic!", {
+          position: "top-right",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }, 3000); // Adjust the delay time as needed
     },
   });
 
   const deleteNote = api.note.delete.useMutation({
-    onSuccess: () => {
-      void refetchNotes();
+    onSuccess: async () => {
+      await refetchNotes();
+      toast.success("Note Deleted successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     },
   });
 
@@ -128,6 +174,20 @@ const Content: React.FC = () => {
           }}
         />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 };
