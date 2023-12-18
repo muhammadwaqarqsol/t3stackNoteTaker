@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import ReactMarkdown from "react-markdown";
-
 import { type RouterOutputs } from "../utils/api";
 
 type Note = RouterOutputs["note"]["getAll"][0];
@@ -31,8 +29,11 @@ export const NoteCard = ({
             </article>
           </div>
         </div>
-        <div className="card-actions mx-2 flex justify-end">
-          <button className="btn btn-warning btn-xs px-5" onClick={onDelete}>
+        <div className="card-actions mx-2 flex flex-col justify-end sm:flex-row">
+          <button
+            className="btn btn-warning btn-xs mt-2 px-5 sm:ml-2 sm:mt-0"
+            onClick={onDelete}
+          >
             Delete
           </button>
         </div>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
@@ -19,17 +18,15 @@ export const NoteEditor = ({
           <input
             type="text"
             placeholder="Note title"
-            className="input input-primary input-lg w-full font-bold"
+            className="input input-primary input-lg w-full p-2 font-bold"
             value={title}
             onChange={(e) => setTitle(e.currentTarget.value)}
           />
         </h2>
         <CodeMirror
           value={code}
-          width="500px"
-          height="30vh"
-          minWidth="100%"
-          minHeight="30vh"
+          width="100%"
+          height="50vh"
           extensions={[
             markdown({ base: markdownLanguage, codeLanguages: languages }),
           ]}
@@ -47,7 +44,7 @@ export const NoteEditor = ({
             setCode("");
             setTitle("");
           }}
-          className="btn btn-primary"
+          className="btn btn-primary mt-2 md:mt-0"
           disabled={title.trim().length === 0 || code.trim().length === 0}
         >
           Save

@@ -4,11 +4,11 @@ export const Header = () => {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="navbar bg-primary text-primary-content">
-      <div className="flex-1 pl-5 text-3xl font-bold">
+    <div className="navbar bg-primary text-primary-content flex justify-between items-center px-4 md:px-8 py-4">
+      <div className="text-3xl font-bold">
         {sessionData?.user?.name ? `Notes for ${sessionData.user.name}` : ""}
       </div>
-      <div className="flex-none gap-2">
+      <div className="flex items-center gap-2">
         <div className="dropdown dropdown-end">
           {sessionData?.user ? (
             <label
@@ -28,7 +28,7 @@ export const Header = () => {
               className="btn btn-ghost rounded-btn"
               onClick={() => void signIn()}
             >
-              Sigin
+              Sign In
             </button>
           )}
         </div>
